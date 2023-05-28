@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "Create";
 }
-<p id="res" class="text-warning"></p>
+<div><p id="res" class="text-warning"></p></div>
+
 <div class="div1">
 <h1>Create</h1>
 
@@ -11,37 +12,38 @@
 <hr />
     <p>@ViewBag.mje</p>
     <div class="row div1" >
+        <p>Todos los campos con * son obligatorios</p>
         <div class="col-md-4">
             <form id="form" asp-action="CreateCliente">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="CodCli" class="control-label">codigo Cliente</label>
+                    <label asp-for="CodCli" class="control-label">codigo Cliente *</label>
                     <input asp-for="CodCli" required class="form-control" />
                     <span asp-validation-for="CodCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MailCli" class="control-label">Mail</label>
+                    <label asp-for="MailCli" class="control-label">Mail *</label>
                     <input asp-for="MailCli" id="mail" required class="form-control" />
                     <span asp-validation-for="MailCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PriNomCli" class="control-label">Primer Nombre</label>
+                    <label asp-for="PriNomCli" class="control-label">Primer Nombre *</label>
                     <input asp-for="PriNomCli" id="pnombre" required class="form-control" />
                     <span asp-validation-for="PriNomCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="SegNomCli" class="control-label">Segundo Nombe</label>
-                    <input asp-for="SegNomCli" id="snombre" required class="form-control" />
+                    <input asp-for="SegNomCli" id="snombre"  class="form-control" />
                     <span asp-validation-for="SegNomCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PriApeCli" class="control-label"> Primer Apellido</label>
+                    <label asp-for="PriApeCli" class="control-label"> Primer Apellido *</label>
                     <input asp-for="PriApeCli" id="papellido" required class="form-control" />
                     <span asp-validation-for="PriApeCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="SegApeCli" class="control-label">Segundo Apellido</label>
-                    <input asp-for="SegApeCli" id="sapellido" required class="form-control" />
+                    <input asp-for="SegApeCli" id="sapellido"  class="form-control" />
                     <span asp-validation-for="SegApeCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">

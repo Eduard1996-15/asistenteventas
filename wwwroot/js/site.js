@@ -5,12 +5,10 @@ function Verificar(event) {
     event.preventDefault();
     let res = "";
     let pnombre = document.querySelector("#pnombre").value;
-    let snombre = document.querySelector("#snombre").value;
     let papellido = document.querySelector("#papellido").value;
     let mail = document.querySelector("#mail").value;
-    let sapellido = document.querySelector("#sapellido").value;
 
-    if ((pnombre.length > 2) && (papellido.length > 2) && (sapellido.length > 2) && (snombre.length > 2)) {
+    if ((pnombre.length > 2) && (papellido.length > 2)) {
         if (validarEmail(mail)) {
             this.submit();
         } else {
