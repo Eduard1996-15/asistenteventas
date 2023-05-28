@@ -38,7 +38,7 @@ namespace asistenteventas.Data
         {
             modelBuilder.Entity<Administrador>(entity =>
             {
-                entity.HasNoKey();
+                //entity.HasNoKey();
 
                 entity.ToTable("Administrador");
 

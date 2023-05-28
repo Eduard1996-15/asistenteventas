@@ -32,16 +32,33 @@ namespace asistenteventas.Controllers
         [HttpPost]
         public IActionResult Login(string n, string c)
         {
-            var usu = _context.Vendedors.FirstOrDefault(
+            try
+            {
+                var usu = _context.Vendedors.FirstOrDefault(
                 u => u.Nombre == n && u.Codigo == c);
               
-            if (usu!=null)
+                if (usu!=null)
+                {
+                    //HttpContext.Session.SetString("Usuario", n);//guardo el id
+                    return RedirectToAction(nameof(Index));
+                }
+                else 
+                {
+                    var admi = _context.Administradors.FirstOrDefault(
+                    u => u.Nombre == n && u.Codigo == c);
+                    if (admi != null)
+                    {
+                        //HttpContext.Session.SetString("Admi", n);//guardo el id
+                        return RedirectToAction("Index","Administradors");
+                    }
+                    else { 
+                        ViewBag.mje = "login incorrecto";
+                        return View();
+                    }
+                }
+            }catch (Exception ex)
             {
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                ViewBag.mje = "login incorrecto";
+                ViewBag.mje = "login incorrecto" + ex.Message;
                 return View();
             }
         }
@@ -92,14 +109,20 @@ namespace asistenteventas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCliente([Bind("CodCli,DirCli,NroDocCli,TelCli,MailCli,FecNacCli,ObsCli,FecAltCli,LugAltCli,FecActCli,HorActCli,LugActCli,FlgCliLoc,CodDpt,CodZon,PriNomCli,SegNomCli,PriApeCli,SegApeCli,NroNomCli,SexCli,CelCli,UltCmpCli,CodPais,TipDocCli,CiuCli,AltWebCli,CarTelCli")] Client client)
+        public async Task<IActionResult> CreateCliente([Bind("CodCli,DirCli,NroDocCli,TelCli,MailCli,FecNacCli,FecAltCli,LugAltCli,PriNomCli,SegNomCli,PriApeCli,SegApeCli,NroNomCli,SexCli,CelCli,CiuCli")] Client client)
         {
             if (ModelState.IsValid)
             {
+                if(client.CodCli  == 0 || client.PriNomCli == "") {
+                ViewBag.mje = "no se a creado cliente con exito";
+                    return View();
+                } 
+                
                 _context.Add(client);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+           
             return View(client);
         }
         // GET: Vendedors/Edit/5
@@ -140,6 +163,42 @@ namespace asistenteventas.Controllers
             }
             catch
             {
+                return View();
+            }
+        }
+
+
+        public ActionResult BuscarporTexto()
+        {
+           // if (HttpContext.Session.GetString("Usuario") != null)
+            //{
+                return View();
+           // }
+           /// else
+           // {
+            //    return RedirectToAction("Login", "Vendedors");
+           // }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BuscarporTexto(string descripcion)
+        {
+            try
+            {
+               IEnumerable<Modelo> modelos = _context.Modelos.Where(x => x.DesMod.Contains(descripcion));
+                if (modelos != null && modelos.Count() > 0)
+                {
+                   // ViewBag.mod= modelos;
+                    ViewBag.mje = " encontrado : ";
+                    return View(modelos);
+                }
+                    ViewBag.mje = " No se encontro con esa descripcion ";
+                     return View(); 
+                
+            }
+            catch (Exception ex)
+            {
+                ViewBag.mje = "No se encontro con ese texto " + ex.Message;
                 return View();
             }
         }

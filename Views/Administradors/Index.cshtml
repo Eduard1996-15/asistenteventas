@@ -1,0 +1,48 @@
+﻿@model IEnumerable<asistenteventas.Models.Vendedor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="div1">
+   
+    <p>
+        <a class="btn btn-outline-primary" asp-action="CreateVendedor">NuevoVendedor</a>
+    </p>
+    <h3 class="">
+        Lista Vendedores
+    </h3>
+
+    @if (Model != null)
+    {
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Codigo)
+                    </th>
+                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Codigo)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+</div>
