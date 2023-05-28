@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using asistenteventas.Data;
+using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ASISTENTE_DE_VENTASContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("conexion")));
+
 
 var app = builder.Build();
 

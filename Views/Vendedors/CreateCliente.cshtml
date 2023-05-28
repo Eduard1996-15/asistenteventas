@@ -1,0 +1,167 @@
+﻿@model asistenteventas.Models.Client
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="div1">
+<h1>Create</h1>
+
+<h4>Client</h4>
+<hr />
+
+    <div class="row div1" >
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="CodCli" class="control-label"></label>
+                    <input asp-for="CodCli" class="form-control" />
+                    <span asp-validation-for="CodCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DirCli" class="control-label"></label>
+                    <input asp-for="DirCli" class="form-control" />
+                    <span asp-validation-for="DirCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NroDocCli" class="control-label"></label>
+                    <input asp-for="NroDocCli" class="form-control" />
+                    <span asp-validation-for="NroDocCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TelCli" class="control-label"></label>
+                    <input asp-for="TelCli" class="form-control" />
+                    <span asp-validation-for="TelCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MailCli" class="control-label"></label>
+                    <input asp-for="MailCli" class="form-control" />
+                    <span asp-validation-for="MailCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FecNacCli" class="control-label"></label>
+                    <input asp-for="FecNacCli" class="form-control" />
+                    <span asp-validation-for="FecNacCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ObsCli" class="control-label"></label>
+                    <input asp-for="ObsCli" class="form-control" />
+                    <span asp-validation-for="ObsCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FecAltCli" class="control-label"></label>
+                    <input asp-for="FecAltCli" class="form-control" />
+                    <span asp-validation-for="FecAltCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LugAltCli" class="control-label"></label>
+                    <input asp-for="LugAltCli" class="form-control" />
+                    <span asp-validation-for="LugAltCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FecActCli" class="control-label"></label>
+                    <input asp-for="FecActCli" class="form-control" />
+                    <span asp-validation-for="FecActCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HorActCli" class="control-label"></label>
+                    <input asp-for="HorActCli" class="form-control" />
+                    <span asp-validation-for="HorActCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LugActCli" class="control-label"></label>
+                    <input asp-for="LugActCli" class="form-control" />
+                    <span asp-validation-for="LugActCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FlgCliLoc" class="control-label"></label>
+                    <input asp-for="FlgCliLoc" class="form-control" />
+                    <span asp-validation-for="FlgCliLoc" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CodDpt" class="control-label"></label>
+                    <input asp-for="CodDpt" class="form-control" />
+                    <span asp-validation-for="CodDpt" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CodZon" class="control-label"></label>
+                    <input asp-for="CodZon" class="form-control" />
+                    <span asp-validation-for="CodZon" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PriNomCli" class="control-label"></label>
+                    <input asp-for="PriNomCli" class="form-control" />
+                    <span asp-validation-for="PriNomCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SegNomCli" class="control-label"></label>
+                    <input asp-for="SegNomCli" class="form-control" />
+                    <span asp-validation-for="SegNomCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PriApeCli" class="control-label"></label>
+                    <input asp-for="PriApeCli" class="form-control" />
+                    <span asp-validation-for="PriApeCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SegApeCli" class="control-label"></label>
+                    <input asp-for="SegApeCli" class="form-control" />
+                    <span asp-validation-for="SegApeCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NroNomCli" class="control-label"></label>
+                    <input asp-for="NroNomCli" class="form-control" />
+                    <span asp-validation-for="NroNomCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SexCli" class="control-label"></label>
+                    <input asp-for="SexCli" class="form-control" />
+                    <span asp-validation-for="SexCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CelCli" class="control-label"></label>
+                    <input asp-for="CelCli" class="form-control" />
+                    <span asp-validation-for="CelCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UltCmpCli" class="control-label"></label>
+                    <input asp-for="UltCmpCli" class="form-control" />
+                    <span asp-validation-for="UltCmpCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CodPais" class="control-label"></label>
+                    <input asp-for="CodPais" class="form-control" />
+                    <span asp-validation-for="CodPais" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipDocCli" class="control-label"></label>
+                    <input asp-for="TipDocCli" class="form-control" />
+                    <span asp-validation-for="TipDocCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CiuCli" class="control-label"></label>
+                    <input asp-for="CiuCli" class="form-control" />
+                    <span asp-validation-for="CiuCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AltWebCli" class="control-label"></label>
+                    <input asp-for="AltWebCli" class="form-control" />
+                    <span asp-validation-for="AltWebCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CarTelCli" class="control-label"></label>
+                    <input asp-for="CarTelCli" class="form-control" />
+                    <span asp-validation-for="CarTelCli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+

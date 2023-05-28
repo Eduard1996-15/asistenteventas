@@ -1,0 +1,190 @@
+﻿@model IEnumerable<asistenteventas.Models.Client>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DirCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NroDocCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TelCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MailCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecNacCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ObsCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecAltCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LugAltCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FecActCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HorActCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LugActCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlgCliLoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodDpt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodZon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriNomCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SegNomCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriApeCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SegApeCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NroNomCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SexCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CelCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UltCmpCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodPais)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipDocCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CiuCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AltWebCli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarTelCli)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DirCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroDocCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MailCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecNacCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ObsCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecAltCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LugAltCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FecActCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HorActCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LugActCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlgCliLoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodDpt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodZon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriNomCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SegNomCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriApeCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SegApeCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NroNomCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SexCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CelCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UltCmpCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodPais)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipDocCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CiuCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AltWebCli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarTelCli)
+            </td>
+            <td>
+                
+                <a asp-action="Details" asp-route-id="@item.CodCli">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

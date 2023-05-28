@@ -14,10 +14,16 @@ namespace asistenteventas.Controllers
         {
             _context = context;
         }
-
+        //cargar datos a la BD
         public IActionResult Cargar()
         {
             return View(); 
+        }
+
+        //busqueda
+        public IActionResult Busqueda()
+        {
+            return View();
         }
         public IActionResult Login()
         {
@@ -26,10 +32,10 @@ namespace asistenteventas.Controllers
         [HttpPost]
         public IActionResult Login(string n, string c)
         {
-            // var usu = _context.Vendedors.FirstOrDefault(
-              //  u => u.Nombre == n && u.Codigo == c);
+            var usu = _context.Vendedors.FirstOrDefault(
+                u => u.Nombre == n && u.Codigo == c);
               
-            if (n=="usu1" && c=="12345")
+            if (usu!=null)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -38,15 +44,12 @@ namespace asistenteventas.Controllers
                 ViewBag.mje = "login incorrecto";
                 return View();
             }
-                
-
-
-            
         }
         // GET: Vendedors
         public ActionResult Index()
         {
-            return View();
+            var clientes = _context.Clients;
+            return View( clientes);
         }
 
         // GET: Vendedors/Details/5
@@ -76,6 +79,29 @@ namespace asistenteventas.Controllers
             }
         }
 
+
+
+        // GET: Clients/Create
+        public IActionResult CreateCliente()
+        {
+            return View();
+        }
+
+        // POST: Clients/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateCliente([Bind("CodCli,DirCli,NroDocCli,TelCli,MailCli,FecNacCli,ObsCli,FecAltCli,LugAltCli,FecActCli,HorActCli,LugActCli,FlgCliLoc,CodDpt,CodZon,PriNomCli,SegNomCli,PriApeCli,SegApeCli,NroNomCli,SexCli,CelCli,UltCmpCli,CodPais,TipDocCli,CiuCli,AltWebCli,CarTelCli")] Client client)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(client);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(client);
+        }
         // GET: Vendedors/Edit/5
         public ActionResult Edit(int id)
         {
