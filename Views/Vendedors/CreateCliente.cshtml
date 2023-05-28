@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
+<p id="res" class="text-warning"></p>
 <div class="div1">
 <h1>Create</h1>
 
@@ -11,97 +12,42 @@
     <p>@ViewBag.mje</p>
     <div class="row div1" >
         <div class="col-md-4">
-            <form asp-action="CreateCliente">
+            <form id="form" asp-action="CreateCliente">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="CodCli" class="control-label"></label>
-                    <input asp-for="CodCli" class="form-control" />
+                    <label asp-for="CodCli" class="control-label">codigo Cliente</label>
+                    <input asp-for="CodCli" required class="form-control" />
                     <span asp-validation-for="CodCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="DirCli" class="control-label"></label>
-                    <input asp-for="DirCli" class="form-control" />
-                    <span asp-validation-for="DirCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="NroDocCli" class="control-label"></label>
-                    <input asp-for="NroDocCli" class="form-control" />
-                    <span asp-validation-for="NroDocCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="TelCli" class="control-label"></label>
-                    <input asp-for="TelCli" class="form-control" />
-                    <span asp-validation-for="TelCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="MailCli" class="control-label"></label>
-                    <input asp-for="MailCli" class="form-control" />
+                    <label asp-for="MailCli" class="control-label">Mail</label>
+                    <input asp-for="MailCli" id="mail" required class="form-control" />
                     <span asp-validation-for="MailCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="FecNacCli" class="control-label"></label>
-                    <input asp-for="FecNacCli" class="form-control" />
-                    <span asp-validation-for="FecNacCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="LugAltCli" class="control-label"></label>
-                    <input asp-for="LugAltCli" class="form-control" />
-                    <span asp-validation-for="LugAltCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="FecActCli" class="control-label"></label>
-                    <input asp-for="FecActCli" class="form-control" />
-                    <span asp-validation-for="FecActCli" class="text-danger"></span>
-                </div>
-                
-                <div class="form-group">
-                    <label asp-for="LugActCli" class="control-label"></label>
-                    <input asp-for="LugActCli" class="form-control" />
-                    <span asp-validation-for="LugActCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PriNomCli" class="control-label"></label>
-                    <input asp-for="PriNomCli" class="form-control" />
+                    <label asp-for="PriNomCli" class="control-label">Primer Nombre</label>
+                    <input asp-for="PriNomCli" id="pnombre" required class="form-control" />
                     <span asp-validation-for="PriNomCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="SegNomCli" class="control-label"></label>
-                    <input asp-for="SegNomCli" class="form-control" />
+                    <label asp-for="SegNomCli" class="control-label">Segundo Nombe</label>
+                    <input asp-for="SegNomCli" id="snombre" required class="form-control" />
                     <span asp-validation-for="SegNomCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PriApeCli" class="control-label"></label>
-                    <input asp-for="PriApeCli" class="form-control" />
+                    <label asp-for="PriApeCli" class="control-label"> Primer Apellido</label>
+                    <input asp-for="PriApeCli" id="papellido" required class="form-control" />
                     <span asp-validation-for="PriApeCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="SegApeCli" class="control-label"></label>
-                    <input asp-for="SegApeCli" class="form-control" />
+                    <label asp-for="SegApeCli" class="control-label">Segundo Apellido</label>
+                    <input asp-for="SegApeCli" id="sapellido" required class="form-control" />
                     <span asp-validation-for="SegApeCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="NroNomCli" class="control-label"></label>
-                    <input asp-for="NroNomCli" class="form-control" />
-                    <span asp-validation-for="NroNomCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SexCli" class="control-label"></label>
-                    <input asp-for="SexCli" class="form-control" />
-                    <span asp-validation-for="SexCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CelCli" class="control-label"></label>
-                    <input asp-for="CelCli" class="form-control" />
-                    <span asp-validation-for="CelCli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="CiuCli" class="control-label"></label>
-                    <input asp-for="CiuCli" class="form-control" />
-                    <span asp-validation-for="CiuCli" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
+                <script src="~/js/site.js"></script>
             </form>
         </div>
     </div>
@@ -109,5 +55,8 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
+    
 </div>
+        
+
 

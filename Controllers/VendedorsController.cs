@@ -109,11 +109,11 @@ namespace asistenteventas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCliente([Bind("CodCli,DirCli,NroDocCli,TelCli,MailCli,FecNacCli,FecAltCli,LugAltCli,PriNomCli,SegNomCli,PriApeCli,SegApeCli,NroNomCli,SexCli,CelCli,CiuCli")] Client client)
+        public async Task<IActionResult> CreateCliente([Bind("CodCli,MailCli,PriNomCli,SegNomCli,PriApeCli,SegApeCli")] Client client)
         {
             if (ModelState.IsValid)
             {
-                if(client.CodCli  == 0 || client.PriNomCli == "") {
+                if(client==null) {
                 ViewBag.mje = "no se a creado cliente con exito";
                     return View();
                 } 
