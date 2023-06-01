@@ -6,10 +6,19 @@ namespace asistenteventas.Models
 {
     public partial class Administrador
     {
+
         [Key]
-        public string Codigo { get; set; } = null!;
+        public int id { get; set; }
         public string Nombre { get; set; } = null!;
 
-        public virtual Usuario CodigoNavigation { get; set; } = null!;
+        public string Contrasenia { get; set; } = null!;
+
+
+
+        public Administrador()
+        {
+        }
+
+        
     }
 }

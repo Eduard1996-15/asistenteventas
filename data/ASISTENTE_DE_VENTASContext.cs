@@ -23,7 +23,6 @@ namespace asistenteventas.Data
         public virtual DbSet<Facloc1> Facloc1s { get; set; } = null!;
         public virtual DbSet<Modelo> Modelos { get; set; } = null!;
         public virtual DbSet<Stock> Stocks { get; set; } = null!;
-        public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
         public virtual DbSet<Vendedor> Vendedors { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -38,25 +37,25 @@ namespace asistenteventas.Data
         {
             modelBuilder.Entity<Administrador>(entity =>
             {
-                //entity.HasNoKey();
-
+               
+                  entity.HasKey(e => e.id);
                 entity.ToTable("Administrador");
+              
 
-                entity.Property(e => e.Codigo)
+                entity.Property(e => e.id)
                     .HasMaxLength(10)
                     .IsUnicode(false)
-                    .HasColumnName("codigo");
-
+                    .HasColumnName("id");
+                entity.Property(e => e.Contrasenia)
+                   .HasMaxLength(10)
+                   .IsUnicode(false)
+                   .HasColumnName("contrasenia");
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("nombre");
 
-                entity.HasOne(d => d.CodigoNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.Codigo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Administr__codig__398D8EEE");
+               
             });
 
             modelBuilder.Entity<Client>(entity =>
@@ -322,45 +321,29 @@ namespace asistenteventas.Data
                     .HasConstraintName("FK__STOCK__CodMod__403A8C7D");
             });
 
-            modelBuilder.Entity<Usuario>(entity =>
-            {
-                entity.HasKey(e => e.Codigo)
-                    .HasName("PK__Usuario__40F9A20795BE330A");
-
-                entity.ToTable("Usuario");
-
-                entity.Property(e => e.Codigo)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("codigo");
-
-                entity.Property(e => e.Nombre)
-                    .HasMaxLength(30)
-                    .IsUnicode(false)
-                    .HasColumnName("nombre");
-            });
+            
 
             modelBuilder.Entity<Vendedor>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e=>e.id);
 
                 entity.ToTable("Vendedor");
 
-                entity.Property(e => e.Codigo)
+                entity.Property(e => e.id)
                     .HasMaxLength(10)
                     .IsUnicode(false)
-                    .HasColumnName("codigo");
+                    .HasColumnName("id");
 
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("nombre");
+                entity.Property(e => e.Contrasenia)
+                  .HasMaxLength(10)
+                  .IsUnicode(false)
+                  .HasColumnName("contrasenia");
 
-                entity.HasOne(d => d.CodigoNavigation)
-                    .WithMany()
-                    .HasForeignKey(d => d.Codigo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Vendedor__codigo__37A5467C");
+
             });
 
             OnModelCreatingPartial(modelBuilder);

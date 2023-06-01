@@ -35,7 +35,7 @@ namespace asistenteventas.Controllers
             try
             {
                 var usu = _context.Vendedors.FirstOrDefault(
-                u => u.Nombre == n && u.Codigo == c);
+                u => u.Nombre == n && u.Contrasenia == c);
               
                 if (usu!=null)
                 {
@@ -45,7 +45,7 @@ namespace asistenteventas.Controllers
                 else 
                 {
                     var admi = _context.Administradors.FirstOrDefault(
-                    u => u.Nombre == n && u.Codigo == c);
+                    u => u.Nombre == n && u.Contrasenia == c);
                     if (admi != null)
                     {
                         //HttpContext.Session.SetString("Admi", n);//guardo el id

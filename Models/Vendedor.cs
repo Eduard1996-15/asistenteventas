@@ -1,15 +1,24 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace asistenteventas.Models
 {
-    public partial class Vendedor
+    public  class Vendedor
     {
         [Key]
-        public string Codigo { get; set; } = null!;
+        public int id { get; set; } 
         public string Nombre { get; set; } = null!;
 
-        public virtual Usuario CodigoNavigation { get; set; } = null!;
+        public string Contrasenia  { get; set; } = null!;
+
+
+
+        public Vendedor()
+        {
+        }
+
+        
     }
 }

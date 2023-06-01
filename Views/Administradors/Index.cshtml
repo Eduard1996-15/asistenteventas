@@ -7,7 +7,7 @@
 <div class="div1">
    
     <p>
-        <a class="btn btn-outline-primary" asp-action="CreateVendedor">NuevoVendedor</a>
+        <a class="btn btn-outline-primary" asp-action="Create">NuevoVendedor</a>
     </p>
     <h3 class="">
         Lista Vendedores
@@ -23,7 +23,7 @@
                         @Html.DisplayNameFor(model => model.Nombre)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Codigo)
+                        @Html.DisplayNameFor(model => model.id)
                     </th>
                     
                     <th></th>
@@ -37,12 +37,18 @@
                             @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Codigo)
+                            @Html.DisplayFor(modelItem => item.id)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+
 
     }
 </div>
