@@ -3,9 +3,6 @@
     ViewData["Title"] = "Busqueda";
 }
 
-	
-
- 
  <div>
 	 
 	<h1>Selecciona un dispositivo</h1>
@@ -151,30 +148,7 @@
 
 						let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
 						$estado.innerHTML = "Enviando foto. Por favor, espera...";
-						fetch("./guardar_foto.php", {
-							method: "POST",
-							body: encodeURIComponent(foto),
-							headers: {
-								"Content-type": "application/x-www-form-urlencoded",
-							}
-						})
-							.then(resultado => {
-								// A los datos los decodificamos como texto plano
-								return resultado.text()
-							})
-							.then(nombreDeLaFoto => {
-								// nombreDeLaFoto trae el nombre de la imagen que le dio PHP
-								console.log("La foto fue enviada correctamente");
-								$estado.innerHTML = `Foto guardada con éxito. Puedes verla <a target='_blank' href='./${nombreDeLaFoto}'> aquí</a>`;
-							})
-
-						//Reanudar reproducción
-						$video.play();
-					});
-				}, function (error) {
-					console.log("Permiso denegado o error: ", error);
-					$estado.innerHTML = "No se puede acceder a la cámara, o no diste permiso.";
-				});
+						//aqui va el guardado y proceso de foto
 		}
 	})();
 </script>

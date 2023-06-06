@@ -4,7 +4,8 @@ using asistenteventas.Data;
 using Microsoft.Extensions.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -23,11 +24,12 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Vendedors}/{action=Login}/{id?}");
+    pattern: "{controller=Usuarios}/{action=Login}/{id?}");
 
 app.Run();

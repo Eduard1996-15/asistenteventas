@@ -9,7 +9,6 @@ namespace asistenteventas.Controllers
     public class VendedorsController : Controller
     {
        private readonly ASISTENTE_DE_VENTASContext _context;
-
         public VendedorsController(ASISTENTE_DE_VENTASContext context)
         {
             _context = context;
@@ -23,46 +22,15 @@ namespace asistenteventas.Controllers
         //busqueda
         public IActionResult Busqueda()
         {
-            return View();
-        }
-        public IActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Login(string n, string c)
-        {
-            try
-            {
-                var usu = _context.Vendedors.FirstOrDefault(
-                u => u.Nombre == n && u.Contrasenia == c);
-              
-                if (usu!=null)
-                {
-                    //HttpContext.Session.SetString("Usuario", n);//guardo el id
-                    return RedirectToAction(nameof(Index));
-                }
-                else 
-                {
-                    var admi = _context.Administradors.FirstOrDefault(
-                    u => u.Nombre == n && u.Contrasenia == c);
-                    if (admi != null)
-                    {
-                        //HttpContext.Session.SetString("Admi", n);//guardo el id
-                        return RedirectToAction("Index","Administradors");
-                    }
-                    else { 
-                        ViewBag.mje = "login incorrecto";
-                        return View();
-                    }
-                }
-            }catch (Exception ex)
-            {
-                ViewBag.mje = "login incorrecto" + ex.Message;
+            if (HttpContext.Session.GetString("Vend") != null)
+            {  
                 return View();
-            }
+
+            }return RedirectToAction("Index");
+
+          
         }
-        // GET: Vendedors
+       
         public ActionResult Index()
         {
             var clientes = _context.Clients;
@@ -101,7 +69,10 @@ namespace asistenteventas.Controllers
         // GET: Clients/Create
         public IActionResult CreateCliente()
         {
+            if(HttpContext.Session.GetString("Vend") != null || HttpContext.Session.GetString("Admi") != null) {
             return View();
+            }else { return RedirectToAction("Login","Usuarios"); }
+            
         }
 
         // POST: Clients/Create
@@ -109,8 +80,9 @@ namespace asistenteventas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCliente([Bind("CodCli,MailCli,PriNomCli,SegNomCli,PriApeCli,SegApeCli")] Client client)
+        public async Task<IActionResult> CreateCliente([Bind("CodCli,MailCli,PriNomCli,NroDocCli,PriApeCli,SegApeCli")] Client client)
         {
+            
             if (ModelState.IsValid)
             {
                 if(client==null) {

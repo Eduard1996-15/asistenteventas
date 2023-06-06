@@ -163,5 +163,6 @@ namespace asistenteventas.Controllers
         {
           return (_context.Vendedors?.Any(e => e.id == id)).GetValueOrDefault();
         }
+
     }
 }

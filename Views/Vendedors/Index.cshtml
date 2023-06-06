@@ -6,14 +6,9 @@
 
 <div class="div1">
 <p>
-    <a class="btn btn-outline-primary" asp-action="Busqueda">Buscar por Foto</a>
-</p>
-    <p>
-        <a class="btn btn-outline-primary" asp-action="BuscarporTexto">Buscar Prendas  por texto</a>
-    </p>
-<p>
     <a class="btn btn-outline-primary" asp-action="CreateCliente">NuevoCliente</a>
 </p>
+
 <h3 class="">
     Lista Clientes
 </h3>
@@ -24,10 +19,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DirCli)
+                @Html.DisplayNameFor(model => model.PriNomCli)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NroDocCli)
+                @Html.DisplayNameFor(model => model.PriApeCli)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TelCli)
@@ -35,16 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.MailCli)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FecNacCli)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CelCli)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodPais)
-            </th>
-           
             <th></th>
         </tr>
     </thead>
@@ -52,10 +37,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DirCli)
+                @Html.DisplayFor(modelItem => item.PriNomCli)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NroDocCli)
+                @Html.DisplayFor(modelItem => item.PriApeCli)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TelCli)
@@ -63,15 +48,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MailCli)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FecNacCli)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CelCli)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodPais)
-            </td>
+            
             <td>
                 <a asp-action="Details" asp-route-id="@item.CodCli">Details</a>
             </td>
