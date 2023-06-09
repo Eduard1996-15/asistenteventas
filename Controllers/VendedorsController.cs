@@ -13,11 +13,7 @@ namespace asistenteventas.Controllers
         {
             _context = context;
         }
-        //cargar datos a la BD
-        public IActionResult Cargar()
-        {
-            return View(); 
-        }
+        
 
         //busqueda
         public IActionResult Busqueda()
@@ -33,8 +29,31 @@ namespace asistenteventas.Controllers
        
         public ActionResult Index()
         {
-            var clientes = _context.Clients;
-            return View( clientes);
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Index(string txtbuscar)
+        {
+
+            try
+            {
+                var cliente = _context.Clients.FirstOrDefault(x => x.NroDocCli.Contains(txtbuscar));
+                if (cliente != null)
+                {
+                    // ViewBag.mod= modelos;
+                    ViewBag.mje = " encontrado : ";
+                    ViewBag.cli = cliente;
+                    return View(cliente);
+                }
+                ViewBag.mje = " No se encontro con esa cedula ";
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.mje = "No se encontro con ese texto " + ex.Message;
+                return View();
+            }
         }
 
         // GET: Vendedors/Details/5
@@ -138,7 +157,6 @@ namespace asistenteventas.Controllers
                 return View();
             }
         }
-
 
         public ActionResult BuscarporTexto()
         {

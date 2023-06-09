@@ -69,7 +69,7 @@ namespace asistenteventas.Controllers
         }
 
         // GET: Administradors1/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id.ToString()==null || _context.Vendedors == null)
             {
@@ -90,7 +90,7 @@ namespace asistenteventas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Contrasenia,Nombre")] Vendedor vendedor)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Contrasenia,Nombre")] Vendedor vendedor)
         {
             if (id != vendedor.id)
             {

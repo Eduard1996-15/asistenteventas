@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace asistenteventas.Controllers
 {
-    public class Usuarios : Controller
+    public class UsuariosController : Controller
     {
         private readonly ASISTENTE_DE_VENTASContext _context;
-        public Usuarios(ASISTENTE_DE_VENTASContext context)
+        public UsuariosController(ASISTENTE_DE_VENTASContext context)
         {
             _context = context;
         }

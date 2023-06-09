@@ -1,59 +1,68 @@
-﻿@model IEnumerable<asistenteventas.Models.Client>
-
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@model asistenteventas.Models.Client;
 
 <div class="div1">
 <p>
     <a class="btn btn-outline-primary" asp-action="CreateCliente">NuevoCliente</a>
 </p>
 
-<h3 class="">
-    Lista Clientes
-</h3>
+    <div>
+        <form asp-action="Index">
+            <div>
+                <label for="txtbuscar">cedula : </label>
+                <input required type="text" name="txtbuscar" value="" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Buscar" class="btn btn-primary" />
+            </div>
+            <div>
+                <p>@ViewBag.mje</p>
+            </div>
 
-@if(Model!= null){
+        </form>
+    </div>
+
+    @if (Model != null)
+    {
     
     <table class="table" >
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PriNomCli)
+                        @Model.PriNomCli
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PriApeCli)
+                        @Model.PriApeCli
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TelCli)
+                        @Model.TelCli
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MailCli)
+                        @Model.MailCli
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PriNomCli)
+                        @Model.PriNomCli
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PriApeCli)
+                        @Model.PriApeCli
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TelCli)
+                        @Model.TelCli
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MailCli)
+                        @Model.MailCli
             </td>
             
             <td>
-                <a asp-action="Details" asp-route-id="@item.CodCli">Details</a>
+                        <a asp-action="Details" asp-route-id="@Model.CodCli">Details</a>
             </td>
         </tr>
-}
+
     </tbody>
 </table>
    
