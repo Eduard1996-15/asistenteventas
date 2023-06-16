@@ -1,8 +1,11 @@
 ﻿using asistenteventas.Data;
 using asistenteventas.Models;
+using Asistenteventas;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Text;
 
 namespace asistenteventas.Controllers
 {
@@ -16,7 +19,7 @@ namespace asistenteventas.Controllers
         
 
         //busqueda
-        public IActionResult Busqueda()
+        public ActionResult Busqueda()
         {
             if (HttpContext.Session.GetString("Vend") != null)
             {  
@@ -26,7 +29,35 @@ namespace asistenteventas.Controllers
 
           
         }
-       
+        [HttpPost]
+        public ActionResult Busqueda(string imagen)
+        {
+			byte[] bytes = Convert.FromBase64String(imagen);
+            
+            try {
+
+                //Load sample data
+                
+				ClasificarImg.ModelInput sampleData = new ClasificarImg.ModelInput()
+				{
+					ImageSource = bytes,
+				};
+
+				//Load model and predict output
+				var result = ClasificarImg.Predict(sampleData);
+
+				
+            
+            }catch (Exception ex)
+            {
+				ViewBag.d =ex.Message;
+
+			}
+
+			return View();
+
+		}
+
         public ActionResult Index()
         {
             return View();
