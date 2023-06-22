@@ -1,133 +1,78 @@
-﻿@model IEnumerable<asistenteventas.Models.Modelo>
+﻿@model IEnumerable<asistenteventas.Models.Stock>
 
 @{
     ViewData["Title"] = "BuscarporTexto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-<form asp-action="BuscarporTexto">
-    <div>
-         <label for="descripcion">descripcion : </label>
-         <input required type="text" name="descripcion" value="" />
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Buscar" class="btn btn-primary" />
-    </div>
-    <div>
-            <p>@ViewBag.mje</p>
-    </div>
-    
-    </form>
-</div>
-@if(Model!=null){
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DesMod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodTem)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodFam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodFam2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodPrv)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrdCreMod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodMonVen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModPreArt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SexMod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DesEshop)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NueMod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SalMod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OutMod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ComMod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LarMod)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ManMod)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DesMod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodTem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodFam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodFam2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodPrv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrdCreMod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodMonVen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModPreArt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SexMod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DesEshop)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NueMod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalMod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OutMod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ComMod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LarMod)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ManMod)
-            </td>
-           
-        </tr>
-}
-    </tbody>
-</table>
-}
+<style>
+    body {
+        background-color: white;
+        color: black;
+        font-family: Arial, sans-serif;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .scrollable-table {
+        max-height: 300px;
+        overflow-y: scroll;
+    }
+
+    .product-image {
+        max-width: 100%;
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container">
+    <h2>Buscar por Descripción</h2>
+    <form asp-action="BuscarporTexto">
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <input required type="text" name="descripcion" value="" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Buscar" class="btn btn-primary" />
+        </div>
+        <div>
+            <p>@ViewBag.mje</p>
+        </div>
+    </form>
+    @if (Model != null && Model.Any())
+    {
+        <div class="scrollable-table">
+            <table class="table table-responsive">
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td colspan="5" class="image-row">
+                                @if (item.Imagen != null && item.Imagen.Length > 0)
+                                {
+                                    <img src="data:image/png;base64,@(Convert.ToBase64String(item.Imagen))" alt="Imagen" class="product-image" />
+                                }
+                                else
+                                {
+                                    <span>No disponible</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.DesArt)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DesDetArt)</td>
+                            <td>@Html.DisplayFor(modelItem => item.CodTalPrv)</td>
+                            <td>@Html.DisplayFor(modelItem => item.SalWebArt)</td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    
+</div>

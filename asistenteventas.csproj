@@ -26,8 +26,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc" Version="6.0.13" />
     <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
   </ItemGroup>
-  <ItemGroup Label="ClasificarImg">
-    <None Include="ClasificarImg.mlnet">
+  <ItemGroup>
+    <None Update="ClasificarImgTipoPrenda.mlnet">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Label="ClasificarImgColor">
+    <None Include="ClasificarImgColor.mlnet">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

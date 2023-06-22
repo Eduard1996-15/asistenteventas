@@ -1,0 +1,63 @@
+﻿
+@{
+   var Model = TempData["miLista"] as IEnumerable<Stock>;
+}
+	
+<p> @ViewBag.mje</p>
+<style>
+	body {
+		background-color: white;
+		color: black;
+		font-family: Arial, sans-serif;
+	}
+
+	.form-group {
+		margin-bottom: 10px;
+	}
+
+	.scrollable-table {
+		max-height: 300px;
+		overflow-y: scroll;
+	}
+
+	.product-image {
+		max-width: 100%;
+		width: 100%;
+		display: block;
+		margin-bottom: 10px;
+	}
+</style>
+<div class="container">
+	@if (Model != null && Model.Any())
+	{
+		<div class="scrollable-table">
+			<table class="table table-responsive">
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td colspan="5" class="image-row">
+								@if (item.Imagen != null && item.Imagen.Length > 0)
+								{
+									<img src="data:image/png;base64,@(Convert.ToBase64String(item.Imagen))" alt="Imagen" class="product-image" />
+								}
+								else
+								{
+									<span>No disponible</span>
+								}
+							</td>
+						</tr>
+						<tr>
+							<td>@Html.DisplayFor(modelItem => item.DesArt)</td>
+							<td>@Html.DisplayFor(modelItem => item.DesDetArt)</td>
+							<td>@Html.DisplayFor(modelItem => item.CodTalPrv)</td>
+							<td>@Html.DisplayFor(modelItem => item.SalWebArt)</td>
+							<td></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+
+		</div>
+	}
+</div>

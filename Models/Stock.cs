@@ -18,6 +18,7 @@ namespace asistenteventas.Models
         public string? CodTalPrv { get; set; }
         public string? CodArtAlt { get; set; }
         public int SalWebArt { get; set; }
+        public byte[] Imagen { get; set; }
 
         public virtual Modelo? CodModNavigation { get; set; }
         public virtual ICollection<Facloc1> Facloc1s { get; set; }

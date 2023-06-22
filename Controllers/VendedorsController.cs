@@ -6,18 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Text;
+using Tensorflow.Framework;
 
 namespace asistenteventas.Controllers
 {
     public class VendedorsController : Controller
     {
        private readonly ASISTENTE_DE_VENTASContext _context;
+        private readonly DbSet<Stock> _stockDbSet;
         public VendedorsController(ASISTENTE_DE_VENTASContext context)
         {
             _context = context;
+            _stockDbSet = _context.Set<Stock>();
         }
         
-
         //busqueda
         public ActionResult Busqueda()
         {
@@ -25,38 +27,76 @@ namespace asistenteventas.Controllers
             {  
                 return View();
 
-            }return RedirectToAction("Index");
+            }return RedirectToAction("Login", "Usuarios");
 
           
         }
         [HttpPost]
         public ActionResult Busqueda(string imagen)
-        {
-			byte[] bytes = Convert.FromBase64String(imagen);
-            
+        { 
             try {
 
-                //Load sample data
-                
-				ClasificarImg.ModelInput sampleData = new ClasificarImg.ModelInput()
-				{
-					ImageSource = bytes,
-				};
+                if (imagen != null && imagen.Length > 0) {
+                    byte[] bytes = Convert.FromBase64String(imagen);
 
-				//Load model and predict output
-				var result = ClasificarImg.Predict(sampleData);
+                    //Load sample data
+                    ClasificarImg.ModelInput sampleData = new ClasificarImg.ModelInput()
+                    {
+                        ImageSource = bytes,
+                    };
 
-				
-            
-            }catch (Exception ex)
+                    ClasificarImgColor.ModelInput sampleDatacolor = new ClasificarImgColor.ModelInput()
+                    {
+                        ImageSource = bytes,
+                    };
+
+                    //Load model and predict output
+                    string color = ClasificarImgColor.Predict(sampleDatacolor).PredictedLabel;
+
+
+                    //Load model and predict output
+                    var tipo = ClasificarImg.Predict(sampleData).PredictedLabel;
+                   
+
+                   
+                    IEnumerable<Stock> stocks = _stockDbSet.Where(x => x.DesArt.Contains(tipo) || x.DesDetArt.Contains(tipo));
+                    if (stocks != null && stocks.Count() > 0)
+					{
+						TempData["miLista"] = stocks;
+						return RedirectToAction("Stock");
+					}
+                    else
+                    {
+                        ViewBag.mje = "No se encontraron modelos con esa foto.";
+                        return View();
+
+                    }
+
+
+                }
+                return View();
+
+
+            }
+			catch (Exception ex)
             {
-				ViewBag.d =ex.Message;
-
+				ViewBag.mje = "Error al buscar por foto: " + ex.Message;
+				return View();
 			}
-
-			return View();
-
 		}
+
+       
+        public ActionResult Stock()
+        {
+            if (HttpContext.Session.GetString("Vend") != null)
+            {
+				ViewBag.mje = "Modelos encontrados:";
+				return View();
+
+            }
+            return RedirectToAction("Usuarios","Login");
+        }
+
 
         public ActionResult Index()
         {
@@ -87,118 +127,154 @@ namespace asistenteventas.Controllers
             }
         }
 
-        // GET: Vendedors/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
-        }
-
-        // GET: Vendedors/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Vendedors/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            if (id.ToString() == null || _context.Vendedors == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
+
+            var vendedores = await _context.Vendedors
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (vendedores == null)
             {
-                return View();
+                return NotFound();
             }
+
+            return View(vendedores);
         }
 
-
-
-        // GET: Clients/Create
-        public IActionResult CreateCliente()
+        // GET: Administradors1/Create
+        public IActionResult Create()
         {
-            if(HttpContext.Session.GetString("Vend") != null || HttpContext.Session.GetString("Admi") != null) {
+
             return View();
-            }else { return RedirectToAction("Login","Usuarios"); }
-            
         }
 
-        // POST: Clients/Create
+        // POST: Administradors1/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateCliente([Bind("CodCli,MailCli,PriNomCli,NroDocCli,PriApeCli,SegApeCli")] Client client)
+        public async Task<IActionResult> Create([Bind("Contrasenia,Nombre")] Vendedor vendedor)
         {
-            
             if (ModelState.IsValid)
             {
-                if(client==null) {
-                ViewBag.mje = "no se a creado cliente con exito";
-                    return View();
-                } 
-                
-                _context.Add(client);
+                _context.Add(vendedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-           
-            return View(client);
+
+            return View(vendedor);
         }
-        // GET: Vendedors/Edit/5
-        public ActionResult Edit(int id)
+
+        // GET: Administradors/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
+            if (id.ToString() == null || _context.Vendedors == null)
+            {
+                return NotFound();
+            }
+
+            var vendedor = await _context.Vendedors.FindAsync(id);
+            if (vendedor == null)
+            {
+                return NotFound();
+            }
+
+            return View(vendedor);
+        }
+
+   
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("id,Contrasenia,Nombre")] Vendedor vendedor)
+        {
+            if (id != vendedor.id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(vendedor);
+                    await _context.SaveChangesAsync();
+
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!VendedorsExists(vendedor.id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
 
-        // POST: Vendedors/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        // GET: Administradors/Delete/5
+        public async Task<IActionResult> Delete(int id)
         {
-            try
+            if (id.ToString() == null || _context.Vendedors == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
+
+            var vendedor = await _context.Vendedors
+
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (vendedor == null)
             {
-                return View();
+                return NotFound();
             }
+
+            return View(vendedor);
         }
 
-        // GET: Vendedors/Delete/5
-        public ActionResult Delete(int id)
+        // POST: Administradors/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            return View();
+            if (_context.Vendedors == null)
+            {
+                return Problem("Entity set 'ASISTENTE_DE_VENTASContext.Vendedors'  is null.");
+            }
+            var vendedor = await _context.Vendedors.FindAsync(id);
+            if (vendedor != null)
+            {
+                _context.Vendedors.Remove(vendedor);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // POST: Vendedors/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        private bool VendedorsExists(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return (_context.Vendedors?.Any(e => e.id == id)).GetValueOrDefault();
         }
+
 
         public ActionResult BuscarporTexto()
         {
-           // if (HttpContext.Session.GetString("Usuario") != null)
-            //{
-                return View();
-           // }
-           /// else
-           // {
-            //    return RedirectToAction("Login", "Vendedors");
-           // }
+            if (HttpContext.Session.GetString("Vend") != null)
+            {
+            return View();
+            }
+             else
+            {
+               return RedirectToAction("Login", "Usuarios");
+             }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -206,22 +282,22 @@ namespace asistenteventas.Controllers
         {
             try
             {
-               IEnumerable<Modelo> modelos = _context.Modelos.Where(x => x.DesMod.Contains(descripcion));
+                IEnumerable<Stock> modelos = _stockDbSet.Where(x => x.DesArt.Contains(descripcion) || x.DesDetArt.Contains(descripcion));
                 if (modelos != null && modelos.Count() > 0)
                 {
-                   // ViewBag.mod= modelos;
-                    ViewBag.mje = " encontrado : ";
+                    ViewBag.mje = "Modelos encontrados:";
                     return View(modelos);
                 }
-                    ViewBag.mje = " No se encontro con esa descripcion ";
-                     return View(); 
-                
+
+                ViewBag.mje = "No se encontraron modelos con esa descripción.";
+                return View();
             }
             catch (Exception ex)
             {
-                ViewBag.mje = "No se encontro con ese texto " + ex.Message;
+                ViewBag.mje = "Error al buscar por texto: " + ex.Message;
                 return View();
             }
         }
+
     }
 }

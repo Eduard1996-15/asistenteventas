@@ -314,6 +314,8 @@ namespace asistenteventas.Data
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .IsFixedLength();
+                entity.Property(e => e.Imagen)
+                   .IsUnicode(false);
 
                 entity.HasOne(d => d.CodModNavigation)
                     .WithMany(p => p.Stocks)
