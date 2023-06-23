@@ -4,7 +4,9 @@ using Asistenteventas;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.IO;
+using System.Numerics;
 using System.Text;
 using Tensorflow.Framework;
 
@@ -19,7 +21,7 @@ namespace asistenteventas.Controllers
             _context = context;
             _stockDbSet = _context.Set<Stock>();
         }
-        
+        private IEnumerable<Stock> _stocks;
         //busqueda
         public ActionResult Busqueda()
         {
@@ -33,7 +35,8 @@ namespace asistenteventas.Controllers
         }
         [HttpPost]
         public ActionResult Busqueda(string imagen)
-        { 
+        {
+            _stocks = null;
             try {
 
                 if (imagen != null && imagen.Length > 0) {
@@ -56,14 +59,14 @@ namespace asistenteventas.Controllers
 
                     //Load model and predict output
                     var tipo = ClasificarImg.Predict(sampleData).PredictedLabel;
-                   
 
-                   
-                    IEnumerable<Stock> stocks = _stockDbSet.Where(x => x.DesArt.Contains(tipo) || x.DesDetArt.Contains(tipo));
+                   IEnumerable<Stock> stocks = null;
+
+				        stocks = _stockDbSet.Where(x => x.DesDetArt==tipo).ToList();
                     if (stocks != null && stocks.Count() > 0)
 					{
-						TempData["miLista"] = stocks;
-						return RedirectToAction("Stock");
+                        _stocks = stocks;
+						  return RedirectToAction("Stock");
 					}
                     else
                     {
@@ -85,13 +88,13 @@ namespace asistenteventas.Controllers
 			}
 		}
 
-       
+     
         public ActionResult Stock()
         {
             if (HttpContext.Session.GetString("Vend") != null)
             {
 				ViewBag.mje = "Modelos encontrados:";
-				return View();
+				return View(_stocks);
 
             }
             return RedirectToAction("Usuarios","Login");

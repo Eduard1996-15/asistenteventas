@@ -5,7 +5,9 @@
 
  <div >
     <form asp-action="Busqueda" id="form" enctype="multipart/form-data">
-       
+		<div class="form-group">
+		<input type="text" name="imagen" id="imagen" readonly />
+		</div>
 			<h1>Selecciona un dispositivo</h1>
 			<div>
 				<select name="listaDeDispositivos" id="listaDeDispositivos"></select>
@@ -34,6 +36,7 @@
 		return (navigator.getUserMedia || (navigator.mozGetUserMedia || navigator.mediaDevices.getUserMedia) || navigator.webkitGetUserMedia || navigator.msGetUserMedia).apply(navigator, arguments);
 	}
 	 let form = document.querySelector('#form');
+		
 	// Declaramos elementos del DOM
 	const $video = document.querySelector("#video"),
 		$canvas = document.querySelector("#canvas"),
@@ -156,20 +159,17 @@
 							
 						$estado.innerHTML = "Enviando foto. Por favor, espera...";
 					
-						var uri = '@Url.Action("Busqueda", "Vendedors")';
+						/*var uri = '@Url.Action("Busqueda", "Vendedors")';
 						//enviar imagen al controlador
 						$.ajax({
 							url: uri,
 							type: 'POST',
 										data: { imagen: foto }
 						
-						});
-						form.Submit();
+						});*/
+							document.querySelector('#imagen').value = foto;
+						form.submit();
 
- 
-						//Reanudar reproducción
-						this.Close();
-					
 						
 					});
 				}, function (error) {
